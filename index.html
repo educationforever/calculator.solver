@@ -56,8 +56,8 @@ h1 {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(5px);
+  background: rgba(0,0,0,0.92); /* darker overlay */
+  backdrop-filter: blur(6px);
   z-index: 1000;
 
   display: flex;
@@ -66,27 +66,36 @@ h1 {
 }
 
 .modal-content {
-  background: white;
-  color: black;
-  width: 400px;
+  background: #1a1a1a;
+  color: white;
+  width: 500px;
   max-width: 90%;
-  padding: 25px;
-  border-radius: 15px;
+  padding: 30px;
+  border-radius: 20px;
   text-align: center;
   position: relative;
-  animation: pop 0.3s ease;
+  border: 2px solid #333;
+  animation: pop 0.25s ease;
+}
+
+.modal-content img {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 20px;
 }
 
 @keyframes pop {
-  from { transform: scale(0.8); opacity: 0; }
+  from { transform: scale(0.85); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
 
 .close {
   position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 22px;
+  top: 12px;
+  right: 18px;
+  font-size: 26px;
   cursor: pointer;
 }
 </style>
@@ -134,8 +143,12 @@ h1 {
 <div id="popup" class="modal" onclick="outsideClick(event)">
   <div class="modal-content">
     <span class="close" onclick="closePopup()">×</span>
-    <h2>Wassup</h2>
-    <p>Ik no one but me plays this but like... I add games daily so have fun if u see this</p>
+
+    <!-- 🔥 CHANGE IMAGE FILE NAME HERE -->
+    <img src="popupimg.png" alt="Popup Image">
+
+    <h2>Welcome!</h2>
+    <p>Click a game to start playing.</p>
   </div>
 </div>
 
