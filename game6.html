@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Snow Rider</title>
+<title>Snow Rider Fullscreen</title>
 <style>
   html, body {
     margin: 0;
@@ -14,33 +14,27 @@
   }
 
   #gameContainer {
-    position: relative;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
+    background: #111;
   }
 
   #gameContainer iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 1200px;   /* original game size */
-    height: 900px;   /* original game size */
+    width: 1200px;   /* original game width */
+    height: 900px;   /* original game height */
     border: none;
-    transform: scale(2);       /* double the size */
+    /* scale the iframe proportionally to fit the viewport without cutting */
+    transform: scale(
+      min(
+        100vw / 1200,
+        100vh / 900
+      )
+    );
     transform-origin: top left;
-  }
-
-  /* Optional: scale down on smaller screens */
-  @media (max-width: 1920px) {
-    #gameContainer iframe {
-      transform: scale(1.5);
-    }
-  }
-  @media (max-width: 1200px) {
-    #gameContainer iframe {
-      transform: scale(1);
-    }
   }
 </style>
 </head>
