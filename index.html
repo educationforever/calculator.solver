@@ -1,181 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Preparing for Calculations</title>
-
 <style>
-body {
+html, body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  padding: 0;
   background: #111;
-  color: white;
-  text-align: center;
-}
-
-h1 {
-  margin: 30px 0;
-  font-size: 50px;
-}
-
-.games-container {
+  height: 100%;
   display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-
-.game-card {
-  text-align: center;
-}
-
-.game-card img {
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 10px;
-  border: 3px solid white;
-  transition: 0.2s;
-}
-
-.game-card img:hover {
-  transform: scale(1.05);
-  border-color: yellow;
-}
-
-.game-card span {
-  display: block;
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-/* ---------- POPUP STYLES ---------- */
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.92); /* darker overlay */
-  backdrop-filter: blur(6px);
-  z-index: 1000;
-
-  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
-.modal-content {
-  background: #1a1a1a;
+.page-title {
   color: white;
-  width: 500px;
-  max-width: 90%;
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  position: relative;
-  border: 2px solid #333;
-  animation: pop 0.25s ease;
+  font-size: 50px;
+  margin: 20px 0;
 }
 
-.modal-content img {
+#gameContainer {
+  width: 100vw;
+  height: calc(100vh - 120px);
+}
+
+#gameContainer iframe {
   width: 100%;
-  max-height: 280px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 20px;
-}
-
-@keyframes pop {
-  from { transform: scale(0.85); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.close {
-  position: absolute;
-  top: 12px;
-  right: 18px;
-  font-size: 26px;
-  cursor: pointer;
+  height: 100%;
+  border: none;
 }
 </style>
 </head>
-
 <body>
 
-<h1>Have fun yo</h1>
+<h1 class="page-title">Prison Escape</h1>
+<button id="fullscreenBtn">Fullscreen</button>
 
-<div class="games-container">
-
-  <div class="game-card">
-    <a href="game1.html"><img src="icon1.png"></a>
-    <span>Stickman GTA City</span>
-  </div>
-
-  <div class="game-card">
-    <a href="game2.html"><img src="drift.png"></a>
-    <span>Drift King</span>
-  </div>
-
-  <div class="game-card">
-    <a href="game3.html"><img src="fnaf.png"></a>
-    <span>FNAF</span>
-  </div>
-
-  <div class="game-card">
-    <a href="game4.html"><img src="highwaytraffic.png"></a>
-    <span>Highway Traffic</span>
-  </div>
-
-  <div class="game-card">
-    <a href="game5.html"><img src="ovo.png"></a>
-    <span>OvO</span>
-  </div>
-  
-  <div class="game-card">
-    <a href="game6.html"><img src="snowrider.png"></a>
-    <span>Snowrider</span>
-  </div>
-
-   <div class="game-card">
-    <a href="game7.html"><img src="escapeprison.png"></a>
-    <span>Prison Escape</span>
-  </div>
-
-</div>
-
-<!-- POPUP -->
-<div id="popup" class="modal" onclick="outsideClick(event)">
-  <div class="modal-content">
-    <span class="close" onclick="closePopup()">×</span>
-
-    <!-- 🔥 CHANGE IMAGE FILE NAME HERE -->
-    <img src="popupimg.png" alt="Popup Image">
-
-    <h2>Wassup</h2>
-    <p>Ik not many people probaly play this but I still add games almost everyday.. Just have fun and don't get caught</p>
-  </div>
+<div id="gameContainer">
+  <iframe id="gameFrame"
+    src="https://db.ducklit.com/html/escapetheprison/index.html"
+    allowfullscreen>
+  </iframe>
 </div>
 
 <script>
-function openPopup() {
-  document.getElementById("popup").style.display = "flex";
-}
+const container = document.getElementById("gameContainer");
+const button = document.getElementById("fullscreenBtn");
 
-function closePopup() {
-  document.getElementById("popup").style.display = "none";
-}
-
-function outsideClick(event) {
-  if (event.target.id === "popup") {
-    closePopup();
+button.addEventListener("click", () => {
+  if (!document.fullscreenElement) {
+    container.requestFullscreen();
+    button.textContent = "Exit Fullscreen";
+  } else {
+    document.exitFullscreen();
+    button.textContent = "Fullscreen";
   }
-}
-
-// Auto open on page load
-window.onload = function() {
-  openPopup();
-}
+});
 </script>
 
 </body>
