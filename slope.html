@@ -40,9 +40,11 @@ html, body {
 <button id="fullscreenBtn">Fullscreen</button>
 
 <div class="game-container"
-<iframe id="game-container" title="Play Slope - Free 3D Endless Runner Online" style="width: 100%; height: 100%; border: none; display: none;"></iframe>
+  <iframe id="game-iframe" src="https://html5.gamedistribution.com/0022998ce3c54962be6ffe178229b168/?gd_sdk_referrer_url=https%3A%2F%2Fwww.rocketgames.io%2Fgame%2Fslope" title="Slope" 
+  sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts allow-same-origin" allow="autoplay; 
+  fullscreen; focus-without-user-activation *; gamepad; keyboard-map *; clipboard-write; web-share; accelerometer; magnetometer; gyroscope; microphone *" style="width: 100%"></iframe>
   
-  <script>
+    <script>
 const container = document.getElementById("gameContainer");
 const button = document.getElementById("fullscreenBtn");
 
