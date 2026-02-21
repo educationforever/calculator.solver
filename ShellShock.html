@@ -17,15 +17,17 @@ html, body {
 }
 
 #fullscreenBtn {
-  margin-bottom: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
+  margin-bottom: 15px;
+  padding: 12px 25px;
+  font-size: 18px;
   cursor: pointer;
 }
 
+/* 🔥 Bigger Vertical Size */
 .game-container {
-  width: 900px;
-  height: 550px;
+  width: 95vw;          /* almost full width */
+  height: 85vh;         /* 85% of screen height */
+  max-width: 1400px;
 }
 
 .game-container iframe {
@@ -37,12 +39,21 @@ html, body {
 </head>
 
 <body>
+
 <button id="fullscreenBtn">Fullscreen</button>
+
 <div class="game-container" id="gameContainer">
-  <div class="game-frame"><iframe data-testid="test_app_frame" id="test_app_frame" allowfullscreen="" allow="autoplay; fullscreen; camera; focus-without-user-activation *; monetization; gamepad;
-             keyboard-map *; xr-spatial-tracking; clipboard-write" name="appFrame" scrolling="no" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock
-                allow-popups allow-popups-to-escape-sandbox allow-presentation allow-scripts allow-same-origin
-                allow-downloads" src="https://mathlete.pages.dev" style="width: 100%; height: 100%; border: none;"></iframe></div>
+  <iframe 
+    allowfullscreen
+    allow="autoplay; fullscreen; camera; focus-without-user-activation *; monetization; gamepad;
+           keyboard-map *; xr-spatial-tracking; clipboard-write"
+    sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock
+             allow-popups allow-popups-to-escape-sandbox allow-presentation 
+             allow-scripts allow-same-origin allow-downloads"
+    src="https://mathlete.pages.dev">
+  </iframe>
+</div>
+
 <script>
 const container = document.getElementById("gameContainer");
 const button = document.getElementById("fullscreenBtn");
@@ -52,7 +63,7 @@ button.addEventListener("click", () => {
     container.requestFullscreen();
     button.textContent = "Exit Fullscreen";
   } else {
-
+    document.exitFullscreen();
     button.textContent = "Fullscreen";
   }
 });
