@@ -10,8 +10,8 @@ html, body {
     padding: 0;
     height: 100%;
     width: 100%;
-    overflow: hidden;
     background: black;
+    overflow: hidden;
 }
 
 .game-frame {
@@ -23,15 +23,26 @@ html, body {
 }
 
 .game-frame iframe {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     border: none;
 }
 
-/* Prevent accidental scrolling on mobile */
-body, html {
-    overscroll-behavior: none;
-    touch-action: none;
+#startBtn {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    z-index: 999;
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    padding: 20px;
 }
 </style>
 </head>
@@ -47,34 +58,24 @@ body, html {
     ></iframe>
 </div>
 
+<div id="startBtn">Tap to Start Game</div>
+
 <script>
-const container = document.getElementById("gameContainer");
-const iframe = container.querySelector("iframe");
+const startBtn = document.getElementById('startBtn');
+const container = document.getElementById('gameContainer');
+const iframe = container.querySelector('iframe');
 
-// Focus iframe immediately
-iframe.focus();
+startBtn.addEventListener('click', () => {
+    // Attempt fullscreen on mobile
+    if (container.requestFullscreen) container.requestFullscreen();
+    else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen(); // Safari
+    else if (container.msRequestFullscreen) container.msRequestFullscreen(); // IE
 
-// Auto fullscreen on mobile
-if (/Mobi|Android/i.test(navigator.userAgent)) {
-    const enterFullscreen = () => {
-        if (container.requestFullscreen) container.requestFullscreen();
-        else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen(); // Safari
-        else if (container.msRequestFullscreen) container.msRequestFullscreen(); // IE
-        iframe.focus();
-    };
+    iframe.focus();
+    startBtn.style.display = 'none'; // hide button
+});
 
-    // Try to enter fullscreen immediately
-    enterFullscreen();
-
-    // Some browsers still require a tap, so we add a fallback
-    const firstTap = () => {
-        enterFullscreen();
-        window.removeEventListener("touchstart", firstTap);
-    };
-    window.addEventListener("touchstart", firstTap, { once: true });
-}
-
-// Keep focus on iframe for input
+// Always keep iframe focused for input
 container.addEventListener("click", () => iframe.focus());
 window.addEventListener("load", () => iframe.focus());
 </script>
