@@ -12,27 +12,12 @@ html, body {
   background: #111;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-#fullscreenBtn {
-  margin-bottom: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  z-index: 10;
-  position: relative;
+  overflow: hidden;
 }
 
 .game-container {
   width: 100%;
   height: 100%;
-  max-width: 100vw;
-  max-height: 100vh;
-  flex: 1;
 }
 
 .game-container iframe {
@@ -44,8 +29,6 @@ html, body {
 </head>
 
 <body>
-<button id="fullscreenBtn">Fullscreen</button>
-
 <div class="game-container" id="gameContainer">
   <iframe
     src="https://educational-moyv.github.io/games/slope/"
@@ -55,36 +38,23 @@ html, body {
 
 <script>
 const container = document.getElementById("gameContainer");
-const button = document.getElementById("fullscreenBtn");
 
-button.addEventListener("click", () => {
-  if (!document.fullscreenElement) {
-    if (container.requestFullscreen) {
-      container.requestFullscreen();
-    } else if (container.webkitRequestFullscreen) { /* Safari */
-      container.webkitRequestFullscreen();
-    } else if (container.msRequestFullscreen) { /* IE11 */
-      container.msRequestFullscreen();
-    }
-    button.textContent = "Exit Fullscreen";
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) { /* Safari */
-      document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { /* IE11 */
-      document.msExitFullscreen();
-    }
-    button.textContent = "Fullscreen";
+// Try to enter fullscreen automatically
+function goFullscreen() {
+  if (container.requestFullscreen) {
+    container.requestFullscreen();
+  } else if (container.webkitRequestFullscreen) { // Safari
+    container.webkitRequestFullscreen();
+  } else if (container.msRequestFullscreen) { // IE11
+    container.msRequestFullscreen();
   }
-});
+}
 
-// Optional: update button text if user exits fullscreen with ESC
-document.addEventListener('fullscreenchange', () => {
-  if (!document.fullscreenElement) {
-    button.textContent = "Fullscreen";
-  }
-});
+// On desktop, this works immediately
+goFullscreen();
+
+// On mobile, some browsers block auto-fullscreen until a touch event
+document.body.addEventListener("touchstart", goFullscreen, { once: true });
 </script>
 
 </body>
