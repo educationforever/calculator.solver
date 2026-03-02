@@ -19,8 +19,32 @@ header nav a:hover { text-decoration: underline; }
 .hero { background: #1f3dc2; color: white; text-align: center; padding: 100px 20px; transition: opacity 0.5s ease; }
 .hero h1 { font-size: 48px; margin-bottom: 20px; }
 .hero p { margin-bottom: 30px; font-size: 18px; }
-.hero button { background: #f97316; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-size: 16px; transition: transform 0.25s ease; }
+
+.hero button {
+  background: #f97316;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: transform 0.25s ease;
+}
+
 .hero button:hover { background: #d9690d; transform: scale(1.05); }
+
+/* POPUP */
+.backblur { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+.backblur.active { opacity: 1; pointer-events: all; }
+
+.popup { background: #222; color: white; position: relative; padding: 20px; border-radius: 10px; width: 80%; max-width: 400px; text-align: center; }
+.popup h2 { margin-bottom: 15px; }
+.popup input { width: 80%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #fff; background: #111; color: white; }
+.popup button { padding: 10px 20px; border-radius: 5px; border: none; background: orange; color: white; cursor: pointer; }
+.popup button:hover { background: #d9690d; }
+
+.closebutton { position: absolute; top: 10px; right: 15px; font-size: 20px; color: yellow; cursor: pointer; transition: transform 0.15s ease; }
+.closebutton:hover { transform: scale(1.5); color: red; }
 
 /* COURSES */
 .courses { padding: 60px 20px; }
@@ -39,47 +63,21 @@ header nav a:hover { text-decoration: underline; }
 
 /* GAME APP */
 #gameApp { display: none; background: #111; color: white; text-align: center; min-height: 100vh; padding: 20px; }
-
-/* SEARCH BAR */
 #searchBar { padding: 12px 15px; width: 90%; max-width: 500px; margin: 20px auto; display: block; font-size: 16px; border-radius: 8px; border: 2px solid #fff; background: #222; color: white; position: sticky; top: 0; z-index: 999; }
-
-/* CATEGORY BUTTONS */
 .category-buttons { margin: 10px 0 20px; }
 .category-buttons button { padding: 8px 18px; margin: 5px; border-radius: 6px; border: none; cursor: pointer; background: #1e90ff; color: white; transition: 0.2s; }
 .category-buttons button:hover { background: #63b3ff; }
 .category-buttons .active { background: yellow; color: black; }
-
-/* RANDOM BUTTON */
 #randomGameBtn { padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; background: #ff4757; color: white; margin-bottom: 20px; }
 #randomGameBtn:hover { background: #ff6b81; }
 
-/* GAME GRID */
 .games-container { display: grid; grid-template-columns: repeat(5, 1fr); gap: 25px; padding: 20px; max-width: 1300px; margin: auto; }
 @media (max-width: 1000px) { .games-container { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 600px) { .games-container { grid-template-columns: repeat(2, 1fr); } }
-
 .game-card { width: 100%; transition: 0.25s ease; }
 .game-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; border: 3px solid white; transition: 0.25s ease; will-change: transform; }
 .game-card:hover img { border-color: yellow; transform: scale(1.05); }
 .game-card span { display: block; margin-top: 8px; font-weight: bold; }
-
-/* POPUP */
-.backblur { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
-.backblur.active { opacity: 1; pointer-events: all; }
-.popup { background: gray; color: black; position: relative; padding: 20px; border: 3px solid red; border-radius: 10px; width: 80%; max-width: 600px; max-height: 85vh; text-align: center; transition: transform 0.3s ease; }
-.popup img { width: 100%; max-height: 60vh; object-fit: contain; border-radius: 12px; }
-.popup h2 { font-size: 25px; color: red; margin: 10px 0; }
-.popup p { font-size: 15px; color: red; margin: 10px 0; }
-.closebutton { position: absolute; top: 10px; right: 20px; font-size: 20px; color: yellow; cursor: pointer; transition: transform 0.15s ease; }
-.closebutton:hover { transform: scale(1.5); color: red; }
-
-/* SIGNUP POPUP */
-#signupPopup { display: none; }
-#signupPopup.active { display: flex; }
-#signupPopup .popup { background: #222; color: white; border: 2px solid orange; }
-#signupPopup input { padding: 10px; width: 80%; margin-bottom: 15px; border-radius: 5px; border: none; }
-#signupPopup button { padding: 10px 20px; background: orange; border: none; border-radius: 5px; cursor: pointer; color: white; font-weight: bold; }
-#signupPopup button:hover { background: #ffb347; }
 </style>
 </head>
 <body>
@@ -96,31 +94,24 @@ header nav a:hover { text-decoration: underline; }
     </nav>
   </header>
 
+  <!-- HERO -->
   <section class="hero" id="heroSection">
     <h1>Edu Calculators</h1>
     <p>Enjoy our army of calculators for different tasks</p>
-    <button id="signupBtn">Sign Up</button>
+    <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
+      <button id="signupBtn">Get Started</button>
+      <button id="signinBtn">Sign In</button>
+    </div>
   </section>
 
+  <!-- COURSES -->
   <section class="courses">
     <h2>Popular Calculators</h2>
     <div class="card-container">
-      <div class="card">
-        <div class="card-top">Code</div>
-        <div class="card-body"><h3>Code Calculators AI</h3><p>This amazing calculator helps with many coding tasks like Chris script.</p></div>
-      </div>
-      <div class="card">
-        <div class="card-top">Math</div>
-        <div class="card-body"><h3>Math</h3><p>This calculator works for advanced math equations.</p></div>
-      </div>
-      <div class="card">
-        <div class="card-top">Financial</div>
-        <div class="card-body"><h3>Financial</h3><p>Level up your financial skills with a budgeting calculator.</p></div>
-      </div>
-      <div class="card">
-        <div class="card-top">Science</div>
-        <div class="card-body"><h3>Science</h3><p>Enhance your scientific skills with this advanced calculator.</p></div>
-      </div>
+      <div class="card"><div class="card-top">Code</div><div class="card-body"><h3>Code Calculators AI</h3><p>This amazing calculator helps with many coding tasks like chris script.</p></div></div>
+      <div class="card"><div class="card-top">Math</div><div class="card-body"><h3>Math</h3><p>This calculator works for advanced math equations.</p></div></div>
+      <div class="card"><div class="card-top">Financial</div><div class="card-body"><h3>Financial</h3><p>Level up your financial skills with accurate budgeting features.</p></div></div>
+      <div class="card"><div class="card-top">Science</div><div class="card-body"><h3>Science</h3><p>Enhanced scientific skills with this advanced calculator.</p></div></div>
     </div>
   </section>
 
@@ -131,17 +122,28 @@ header nav a:hover { text-decoration: underline; }
 
   <section class="contact">
     <h2>Contact Us</h2>
-    <p>Contact us about any problems at educalcs@gmail.com.</p>
+    <p>Contact us at educalcs@gmail.com.</p>
   </section>
 </div>
 
-<!-- SIGNUP POPUP -->
+<!-- SIGN UP / SIGN IN POPUPS -->
 <div class="backblur" id="signupPopup">
   <div class="popup">
-    <h2>Sign Up</h2>
-    <input type="text" id="usernameInput" placeholder="Enter your username" />
-    <br>
-    <button id="continueBtn">Continue</button>
+    <span class="closebutton" onclick="signupPopup.classList.remove('active')">✖</span>
+    <h2>Create Account</h2>
+    <input type="text" id="signupUsername" placeholder="Choose a username">
+    <br><br>
+    <button id="signupContinueBtn">Continue</button>
+  </div>
+</div>
+
+<div class="backblur" id="signinPopup">
+  <div class="popup">
+    <span class="closebutton" onclick="signinPopup.classList.remove('active')">✖</span>
+    <h2>Sign In</h2>
+    <input type="text" id="signinUsername" placeholder="Enter your username">
+    <br><br>
+    <button id="signinContinueBtn">Continue</button>
   </div>
 </div>
 
@@ -152,66 +154,76 @@ header nav a:hover { text-decoration: underline; }
 
   <div class="category-buttons">
     <button onclick="filterCategory('All', event)" class="active">All</button>
-    <button onclick="filterCategory('Driving', event)" class="active">Driving</button>
-    <button onclick="filterCategory('Sports', event)" class="active">Sports</button>
-    <button onclick="filterCategory('Action', event)" class="active">Action</button>
-    <button onclick="filterCategory('Idle', event)" class="active">Idle</button>
-    <button onclick="filterCategory('Puzzle', event)" class="active">Puzzle</button>
+    <button onclick="filterCategory('Driving', event)">Driving</button>
+    <button onclick="filterCategory('Sports', event)">Sports</button>
+    <button onclick="filterCategory('Action', event)">Action</button>
+    <button onclick="filterCategory('Idle', event)">Idle</button>
+    <button onclick="filterCategory('Puzzle', event)">Puzzle</button>
   </div>
 
   <button id="randomGameBtn">🎲 Play Random</button>
-
-  <div class="backblur" id="popupBg">
-    <div class="popup">
-      <div class="closebutton" onclick="closePopup()">✖</div>
-      <img src="thanos-dance.png" alt="Game Image">
-      <h2>Wassup guys</h2>
-      <p>Welcome to my game app, don't get caught, shout out to Maurico/Mario, Very Ahmet Ozdugyan, Abowiyusuf, and Shubhy</p>
-    </div>
-  </div>
-
   <div class="games-container" id="gamesContainer"></div>
 </section>
 
 <script>
-/* ===== SIGNUP FLOW ===== */
+/* -------------------
+   AUTH SYSTEM
+------------------- */
+const landingPage = document.getElementById("landingPage");
+const gameApp = document.getElementById("gameApp");
+
 const signupPopup = document.getElementById("signupPopup");
+const signinPopup = document.getElementById("signinPopup");
+
 const signupBtn = document.getElementById("signupBtn");
-const continueBtn = document.getElementById("continueBtn");
-const usernameInput = document.getElementById("usernameInput");
+const signinBtn = document.getElementById("signinBtn");
 
-// Show signup only when user clicks
-signupBtn.addEventListener("click", () => {
-  signupPopup.classList.add("active");
-});
+const signupContinueBtn = document.getElementById("signupContinueBtn");
+const signinContinueBtn = document.getElementById("signinContinueBtn");
 
-// Continue button hides popup & shows game
-continueBtn.addEventListener("click", () => {
-  const username = usernameInput.value.trim();
-  if(!username) return alert("Please enter a username!");
-  localStorage.setItem("signedUp", "true");
+const signupUsername = document.getElementById("signupUsername");
+const signinUsername = document.getElementById("signinUsername");
+
+/* SHOW POPUPS */
+signupBtn.addEventListener("click", () => signupPopup.classList.add("active"));
+signinBtn.addEventListener("click", () => signinPopup.classList.add("active"));
+
+/* SIGN UP */
+signupContinueBtn.addEventListener("click", () => {
+  const username = signupUsername.value.trim();
+  if(!username){ alert("Please enter a username."); return; }
   localStorage.setItem("username", username);
-
+  localStorage.setItem("signedIn", "true");
   signupPopup.classList.remove("active");
-  document.getElementById("landingPage").style.display = "none";
-  document.getElementById("gameApp").style.display = "block";
-  document.getElementById("popupBg").classList.add("active");
-  window.scrollTo({ top: 0, behavior: 'auto' });
+  showGameApp();
 });
 
-// Skip landing page if already signed up
-if(localStorage.getItem("signedUp") === "true") {
-  document.getElementById("landingPage").style.display = "none";
-  document.getElementById("gameApp").style.display = "block";
-  document.getElementById("popupBg").classList.add("active");
+/* SIGN IN */
+signinContinueBtn.addEventListener("click", () => {
+  const username = signinUsername.value.trim();
+  const savedUser = localStorage.getItem("username");
+  if(!username){ alert("Please enter a username."); return; }
+  if(username !== savedUser){ alert("Username not found."); return; }
+  localStorage.setItem("signedIn", "true");
+  signinPopup.classList.remove("active");
+  showGameApp();
+});
+
+/* SHOW GAME APP */
+function showGameApp() {
+  landingPage.style.display = "none";
+  gameApp.style.display = "block";
+  window.scrollTo(0,0);
 }
 
-/* ===== POPUP ===== */
-function closePopup() {
-  document.getElementById("popupBg").classList.remove("active");
+/* AUTO LOGIN */
+if(localStorage.getItem("signedIn") === "true"){
+  showGameApp();
 }
 
-/* ===== ALL GAMES ===== */
+/* -------------------
+   GAME APP LOGIC
+------------------- */
 const gamesList = [
   {name:"Stickman GTA City", img:"icon1.png", file:"game1.html", category:"Action"},
   {name:"Drift King", img:"drift.png", file:"game2.html", category:"Driving"},
@@ -269,13 +281,13 @@ const gamesList = [
   {name:"Highway Moto", img:"moto.png", file:"games/moto.html", category:"Driving"},
 ];
 
-/* ===== DOM ELEMENTS ===== */
+/* DOM ELEMENTS */
 const container = document.getElementById("gamesContainer");
 const buttons = document.querySelectorAll(".category-buttons button");
 let currentCategory = "All";
 let searchTimeout;
 
-/* ===== RENDER GAMES ===== */
+/* RENDER */
 function getFilteredGames(){
   const query = document.getElementById("searchBar").value.toLowerCase();
   return gamesList.filter(game =>
@@ -312,7 +324,7 @@ function renderGames(){
   container.appendChild(fragment);
 }
 
-/* ===== CATEGORY FILTER ===== */
+/* CATEGORY FILTER */
 function filterCategory(category, event){
   currentCategory = category;
   buttons.forEach(btn=>btn.classList.remove("active"));
@@ -320,13 +332,365 @@ function filterCategory(category, event){
   renderGames();
 }
 
-/* ===== SEARCH ===== */
+/* SEARCH */
 document.getElementById("searchBar").addEventListener("input", () => {
   clearTimeout(searchTimeout);
   searchTimeout = setTimeout(renderGames, 200);
 });
 
-/* ===== RANDOM GAME BUTTON ===== */
+/* RANDOM GAME BUTTON */
+document.getElementById("randomGameBtn").addEventListener("click", () => {
+  const games = getFilteredGames();
+  if(games.length===0) return;
+  const random = games[Math.floor(Math.random()*games.length)];
+  window.location.href = random.file;
+});
+
+/* INITIAL RENDER */
+renderGames();
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Educational Calculators</title>
+<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+<style>
+/* GENERAL */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+body { background: #f2f2f2; color: black; }
+
+/* NAVBAR */
+header { background: #2f3e4f; color: white; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; }
+header nav a { color: white; text-decoration: none; margin-left: 20px; }
+header nav a:hover { text-decoration: underline; }
+
+/* HERO */
+.hero { background: #1f3dc2; color: white; text-align: center; padding: 100px 20px; transition: opacity 0.5s ease; }
+.hero h1 { font-size: 48px; margin-bottom: 20px; }
+.hero p { margin-bottom: 30px; font-size: 18px; }
+
+.hero button {
+  background: #f97316;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: transform 0.25s ease;
+}
+
+.hero button:hover { background: #d9690d; transform: scale(1.05); }
+
+/* POPUP */
+.backblur { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+.backblur.active { opacity: 1; pointer-events: all; }
+
+.popup { background: #222; color: white; position: relative; padding: 20px; border-radius: 10px; width: 80%; max-width: 400px; text-align: center; }
+.popup h2 { margin-bottom: 15px; }
+.popup input { width: 80%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #fff; background: #111; color: white; }
+.popup button { padding: 10px 20px; border-radius: 5px; border: none; background: orange; color: white; cursor: pointer; }
+.popup button:hover { background: #d9690d; }
+
+.closebutton { position: absolute; top: 10px; right: 15px; font-size: 20px; color: yellow; cursor: pointer; transition: transform 0.15s ease; }
+.closebutton:hover { transform: scale(1.5); color: red; }
+
+/* COURSES */
+.courses { padding: 60px 20px; }
+.courses h2 { margin-bottom: 30px; }
+.card-container { display: flex; gap:40px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 20px; scroll-behavior: smooth; }
+.card-container::-webkit-scrollbar { display: none; }
+.card { background: #62798d; width: 300px; border-radius: 8px; box-shadow: 0 5px 10px rgba(0,0,0,0.1); overflow: hidden; cursor: pointer; transition: transform 0.3s ease; flex-shrink: 0; }
+.card:hover { transform: scale(1.1); }
+.card-top { background: #9ca3af; padding: 80px; text-align: center; font-weight: bold; }
+.card-body { padding: 20px; }
+.card-body h3 { margin-bottom: 10px; }
+
+/* ABOUT + CONTACT */
+.about, .contact { padding: 40px; }
+.about h2, .contact h2 { margin-bottom: 15px; }
+
+/* GAME APP */
+#gameApp { display: none; background: #111; color: white; text-align: center; min-height: 100vh; padding: 20px; }
+#searchBar { padding: 12px 15px; width: 90%; max-width: 500px; margin: 20px auto; display: block; font-size: 16px; border-radius: 8px; border: 2px solid #fff; background: #222; color: white; position: sticky; top: 0; z-index: 999; }
+.category-buttons { margin: 10px 0 20px; }
+.category-buttons button { padding: 8px 18px; margin: 5px; border-radius: 6px; border: none; cursor: pointer; background: #1e90ff; color: white; transition: 0.2s; }
+.category-buttons button:hover { background: #63b3ff; }
+.category-buttons .active { background: yellow; color: black; }
+#randomGameBtn { padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; background: #ff4757; color: white; margin-bottom: 20px; }
+#randomGameBtn:hover { background: #ff6b81; }
+
+.games-container { display: grid; grid-template-columns: repeat(5, 1fr); gap: 25px; padding: 20px; max-width: 1300px; margin: auto; }
+@media (max-width: 1000px) { .games-container { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px) { .games-container { grid-template-columns: repeat(2, 1fr); } }
+.game-card { width: 100%; transition: 0.25s ease; }
+.game-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; border: 3px solid white; transition: 0.25s ease; will-change: transform; }
+.game-card:hover img { border-color: yellow; transform: scale(1.05); }
+.game-card span { display: block; margin-top: 8px; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<!-- LANDING PAGE -->
+<div id="landingPage">
+  <header>
+    <div class="logo">Calculators</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Courses</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="heroSection">
+    <h1>Edu Calculators</h1>
+    <p>Enjoy our army of calculators for different tasks</p>
+    <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
+      <button id="signupBtn">Get Started</button>
+      <button id="signinBtn">Sign In</button>
+    </div>
+  </section>
+
+  <!-- COURSES -->
+  <section class="courses">
+    <h2>Popular Calculators</h2>
+    <div class="card-container">
+      <div class="card"><div class="card-top">Code</div><div class="card-body"><h3>Code Calculators AI</h3><p>This amazing calculator helps with many coding tasks like chris script.</p></div></div>
+      <div class="card"><div class="card-top">Math</div><div class="card-body"><h3>Math</h3><p>This calculator works for advanced math equations.</p></div></div>
+      <div class="card"><div class="card-top">Financial</div><div class="card-body"><h3>Financial</h3><p>Level up your financial skills with accurate budgeting features.</p></div></div>
+      <div class="card"><div class="card-top">Science</div><div class="card-body"><h3>Science</h3><p>Enhanced scientific skills with this advanced calculator.</p></div></div>
+    </div>
+  </section>
+
+  <section class="about">
+    <h2>About Us</h2>
+    <p>Edu calcs are all about helping the community for free. Just sign up and get started!</p>
+  </section>
+
+  <section class="contact">
+    <h2>Contact Us</h2>
+    <p>Contact us at educalcs@gmail.com.</p>
+  </section>
+</div>
+
+<!-- SIGN UP / SIGN IN POPUPS -->
+<div class="backblur" id="signupPopup">
+  <div class="popup">
+    <span class="closebutton" onclick="signupPopup.classList.remove('active')">✖</span>
+    <h2>Create Account</h2>
+    <input type="text" id="signupUsername" placeholder="Choose a username">
+    <br><br>
+    <button id="signupContinueBtn">Continue</button>
+  </div>
+</div>
+
+<div class="backblur" id="signinPopup">
+  <div class="popup">
+    <span class="closebutton" onclick="signinPopup.classList.remove('active')">✖</span>
+    <h2>Sign In</h2>
+    <input type="text" id="signinUsername" placeholder="Enter your username">
+    <br><br>
+    <button id="signinContinueBtn">Continue</button>
+  </div>
+</div>
+
+<!-- GAME APP -->
+<section id="gameApp">
+  <input type="text" id="searchBar" placeholder="Search games...">
+  <h1>Have fun yo ✌️🥀</h1>
+
+  <div class="category-buttons">
+    <button onclick="filterCategory('All', event)" class="active">All</button>
+    <button onclick="filterCategory('Driving', event)">Driving</button>
+    <button onclick="filterCategory('Sports', event)">Sports</button>
+    <button onclick="filterCategory('Action', event)">Action</button>
+    <button onclick="filterCategory('Idle', event)">Idle</button>
+    <button onclick="filterCategory('Puzzle', event)">Puzzle</button>
+  </div>
+
+  <button id="randomGameBtn">🎲 Play Random</button>
+  <div class="games-container" id="gamesContainer"></div>
+</section>
+
+<script>
+/* -------------------
+   AUTH SYSTEM
+------------------- */
+const landingPage = document.getElementById("landingPage");
+const gameApp = document.getElementById("gameApp");
+
+const signupPopup = document.getElementById("signupPopup");
+const signinPopup = document.getElementById("signinPopup");
+
+const signupBtn = document.getElementById("signupBtn");
+const signinBtn = document.getElementById("signinBtn");
+
+const signupContinueBtn = document.getElementById("signupContinueBtn");
+const signinContinueBtn = document.getElementById("signinContinueBtn");
+
+const signupUsername = document.getElementById("signupUsername");
+const signinUsername = document.getElementById("signinUsername");
+
+/* SHOW POPUPS */
+signupBtn.addEventListener("click", () => signupPopup.classList.add("active"));
+signinBtn.addEventListener("click", () => signinPopup.classList.add("active"));
+
+/* SIGN UP */
+signupContinueBtn.addEventListener("click", () => {
+  const username = signupUsername.value.trim();
+  if(!username){ alert("Please enter a username."); return; }
+  localStorage.setItem("username", username);
+  localStorage.setItem("signedIn", "true");
+  signupPopup.classList.remove("active");
+  showGameApp();
+});
+
+/* SIGN IN */
+signinContinueBtn.addEventListener("click", () => {
+  const username = signinUsername.value.trim();
+  const savedUser = localStorage.getItem("username");
+  if(!username){ alert("Please enter a username."); return; }
+  if(username !== savedUser){ alert("Username not found."); return; }
+  localStorage.setItem("signedIn", "true");
+  signinPopup.classList.remove("active");
+  showGameApp();
+});
+
+/* SHOW GAME APP */
+function showGameApp() {
+  landingPage.style.display = "none";
+  gameApp.style.display = "block";
+  window.scrollTo(0,0);
+}
+
+/* AUTO LOGIN */
+if(localStorage.getItem("signedIn") === "true"){
+  showGameApp();
+}
+
+/* -------------------
+   GAME APP LOGIC
+------------------- */
+const gamesList = [
+  {name:"Stickman GTA City", img:"icon1.png", file:"game1.html", category:"Action"},
+  {name:"Drift King", img:"drift.png", file:"game2.html", category:"Driving"},
+  {name:"Five Nights At Freddy's", img:"fnaf.png", file:"game3.html", category:"Action"},
+  {name:"Highway Traffic", img:"highwaytraffic.png", file:"game4.html", category:"Driving"},
+  {name:"OvO", img:"ovo.png", file:"game5.html", category:"Action"},
+  {name:"Snowrider", img:"snowrider.png", file:"game6.html", category:"Driving"},
+  {name:"Prison Escape", img:"escapeprison.png", file:"game7.html", category:"Action"},
+  {name:"Basketball Stars", img:"basketball.png", file:"game8.html", category:"Sports"},
+  {name:"Motox3m", img:"motox3m.png", file:"game9.html", category:"Driving"},
+  {name:"Golf Orbit", img:"golforbit.png", file:"game10.html", category:"Sports"},
+  {name:"Drive Mad", img:"drivemad.png", file:"game11.html", category:"Driving"},
+  {name:"Backflip Challenge", img:"backflip.png", file:"game12.html", category:"Action"},
+  {name:"Gun Spin", img:"gun.png", file:"game13.html", category:"Action"},
+  {name:"Deadly Descent", img:"deadly.png", file:"game14.html", category:"Action"},
+  {name:"Wheelie Bike", img:"game.png", file:"game15.html", category:"Driving"},
+  {name:"Football Bros", img:"football.png", file:"game16.html", category:"Sports"},
+  {name:"Racecar Survival", img:"Arena.png", file:"game17.html", category:"Driving"},
+  {name:"Obby but you're on a Bike", img:"obby.png", file:"game18.html", category:"Action"},
+  {name:"Hollow Knight (goated)", img:"knight.png", file:"game19.html", category:"Action"},
+  {name:"Eddy's Carsim", img:"carsim.png", file:"carsim.html", category:"Driving"},
+  {name:"Eggy Car", img:"eggy.png", file:"eggy.html", category:"Driving"},
+  {name:"Basketball Random", img:"random.png", file:"Basketballrandom.html", category:"Sports"},
+  {name:"Pizza Tower", img:"pizza.png", file:"pizzatower.html", category:"Action"},
+  {name:"Bitlife", img:"bitlife.png", file:"bitlife.html", category:"Idle"},
+  {name:"Impossible Quiz", img:"impossible.png", file:"games/impossiblequiz.html", category:"Action"},
+  {name:"Solar Smash", img:"smash.png", file:"solarsmash.html", category:"Action"},
+  {name:"Thorns and Balloon (very ahmet)", img:"thorns.png", file:"thorns.html", category:"Action"},
+  {name:"Escape Car", img:"escape.png", file:"escape.html", category:"Driving"},
+  {name:"Jetpack Joyride", img:"jetpack.png", file:"game20.html", category:"Action"},
+  {name:"Cargo Racing", img:"jeep.png", file:"cargoracing.html", category:"Driving"},
+  {name:"Cookie Clicker", img:"cookie.png", file:"game21.html", category:"Idle"},
+  {name:"Ragdoll", img:"archer.png", file:"archers.html", category:"Action"},
+  {name:"Retro Bowl", img:"ah.png", file:"retrobowl.html", category:"Sports"},
+  {name:"Police Chase Drift", img:"drifter.png", file:"drifter.html", category:"Driving"},
+  {name:"Slope", img:"slope.png", file:"slopetry4.html", category:"Action"},
+  {name:"Cluster Rush", img:"cluster.png", file:"cluster.html", category:"Action"},
+  {name:"Stickman Hook", img:"hook.png", file:"stickmanhook.html", category:"Action"},
+  {name:"Backrooms", img:"backrooms.png", file:"backrooms.html", category:"Action"},
+  {name:"Run 3", img:"run3.png", file:"run3.html", category:"Action"},
+  {name:"Snek.io", img:"snek.png", file:"snek.html", category:"Action"},
+  {name:"2048", img:"2048.png", file:"games/2048.html", category:"Action"},
+  {name:"Idle Restaurant", img:"idle.png", file:"idle.html", category:"Idle"},
+  {name:"Little Alchemy 2", img:"alchemy.png", file:"games/alchemy.html", category:"Puzzle"},
+  {name:"Watermelon Game", img:"watermelon.png", file:"games/watermelon.html", category:"Puzzle"},
+  {name:"Draw Climber", img:"drawclimber.png", file:"games/drawclimber.html", category:"Action"},
+  {name:"Bubble Shooter", img:"bubble.png", file:"games/bubble.html", category:"Action"},
+  {name:"Checkout Frenzy", img:"checkout.png", file:"games/checkout.html", category:"Action"},
+  {name:"Slope 2", img:"Slope2.png", file:"games/slope2.html", category:"Action"},
+  {name:"Monkey Mart", img:"mart.png", file:"games/monkeymart.html", category:"Idle"},
+  {name:"Draw the Hill", img:"drawthehill.png", file:"games/drawthehill.html", category:"Driving"},
+  {name:"Getaway Shootout", img:"getaway.png", file:"games/getaway-shootout.html", category:"Action"},
+  {name:"Cubefield", img:"cubefield.png", file:"games/cubefield.html", category:"Action"},
+  {name:"Moto Road Rash 3d", img:"road.png", file:"games/roadrash3d", category:"Driving"},
+  {name:"Highway Moto", img:"moto.png", file:"games/moto.html", category:"Driving"},
+];
+
+/* DOM ELEMENTS */
+const container = document.getElementById("gamesContainer");
+const buttons = document.querySelectorAll(".category-buttons button");
+let currentCategory = "All";
+let searchTimeout;
+
+/* RENDER */
+function getFilteredGames(){
+  const query = document.getElementById("searchBar").value.toLowerCase();
+  return gamesList.filter(game =>
+    (currentCategory==="All" || game.category===currentCategory) &&
+    game.name.toLowerCase().includes(query)
+  );
+}
+
+function renderGames(){
+  container.innerHTML = "";
+  const fragment = document.createDocumentFragment();
+  getFilteredGames().forEach(game => {
+    const card = document.createElement("div");
+    card.className = "game-card";
+
+    const link = document.createElement("a");
+    link.href = game.file;
+
+    const img = document.createElement("img");
+    img.src = game.img;
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.alt = game.name;
+
+    link.appendChild(img);
+    card.appendChild(link);
+
+    const title = document.createElement("span");
+    title.textContent = game.name;
+    card.appendChild(title);
+
+    fragment.appendChild(card);
+  });
+  container.appendChild(fragment);
+}
+
+/* CATEGORY FILTER */
+function filterCategory(category, event){
+  currentCategory = category;
+  buttons.forEach(btn=>btn.classList.remove("active"));
+  event.target.classList.add("active");
+  renderGames();
+}
+
+/* SEARCH */
+document.getElementById("searchBar").addEventListener("input", () => {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(renderGames, 200);
+});
+
+/* RANDOM GAME BUTTON */
 document.getElementById("randomGameBtn").addEventListener("click", () => {
   const games = getFilteredGames();
   if(games.length===0) return;
