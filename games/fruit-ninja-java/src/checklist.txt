@@ -1,2 +1,0 @@
-Singelton [Controller].
-Iterator  [removeObject]
